@@ -90,3 +90,5 @@ void loop() {
   CrashMonitor.iAmAlive();
 }
 ```
+
+## How to install
