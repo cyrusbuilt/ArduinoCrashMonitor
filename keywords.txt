@@ -1,0 +1,45 @@
+#######################################
+# Syntax Coloring Map for CrashMonitor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CrashMonitor  KEYWORD1
+CCrashMonitor KEYWORD1
+CCrashMonitorHeader KEYWORD1
+CCrashReport  KEYWORD1
+ETimeout  KEYWORD1
+Watchdog  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+dump  KEYWORD2
+enableWatchdog  KEYWORD2
+disableWatchdog KEYWORD2
+iAmAlive  KEYWORD2
+setData KEYWORD2
+getData KEYWORD2
+watchDogInterruptHandler  KEYWORD2
+setUserCrashHandler KEYWORD2
+clear KEYWORD2
+isFull  KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Timeout_15ms  LITERAL1
+Timeout_30ms  LITERAL1
+Timeout_60ms  LITERAL1
+Timeout_120ms LITERAL1
+Timeout_250ms LITERAL1
+Timeout_500ms LITERAL1
+Timeout_1s  LITERAL1
+Timeout_2s  LITERAL1
+Timeout_4s  LITERAL1
+Timeout_8s  LITERAL1
+PROGRAM_COUNTER_SIZE  LITERAL1

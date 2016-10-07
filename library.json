@@ -1,0 +1,18 @@
+{
+  "name": "ArduinoCrashMonitor",
+  "keywords": "crash, monitor, eeprom",
+  "description": "An interrupt-driven crash monitor implementing the Arduino watchdog and stores crash reports in EEPROM.",
+  "authors": [
+    {
+      "name": "Cyrus Brunner",
+      "email": "cyrusbuilt@gmail.com"
+    }
+  ],
+  "respository": {
+    "type": "git",
+    "url": "https://github.com/cyrusbuilt/ArduinoCrashMonitor.git"
+  },
+  "version": "1.0.0",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
