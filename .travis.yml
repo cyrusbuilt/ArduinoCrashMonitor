@@ -12,7 +12,6 @@ install:
   - ln -s $PWD /usr/local/share/arduino/libraries/ArduinoCrashMonitor
 script:
   - arduino --verbose --verify --board arduino:avr:uno $PWD/examples/CrashMonitorAdvancedExample/CrashMonitorAdvancedExample.ino
-  - arduino --verbose --verify --board arduino:var:uno $PWD/examples/CrashMonitorBasicExample/CrashMonitorBasicExample.ino
 notifications:
   email:
     on_success: change

@@ -6,7 +6,7 @@ void setup() {
   while (!Serial) {
     delay(10);
   }
-  
+
   CrashMonitor.dump(Serial);
   CrashMonitor.enableWatchdog(Watchdog::CCrashMonitor::Timeout_2s);
 }
