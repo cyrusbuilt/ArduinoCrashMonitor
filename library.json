@@ -10,7 +10,7 @@
       "maintainer": true
     }
   ],
-  "respository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/cyrusbuilt/ArduinoCrashMonitor.git"
   },
