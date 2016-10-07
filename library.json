@@ -5,7 +5,9 @@
   "authors": [
     {
       "name": "Cyrus Brunner",
-      "email": "cyrusbuilt@gmail.com"
+      "email": "cyrusbuilt@gmail.com",
+      "url": "http://cyrusbuilt.net",
+      "maintainer": true
     }
   ],
   "respository": {
@@ -13,6 +15,8 @@
     "url": "https://github.com/cyrusbuilt/ArduinoCrashMonitor.git"
   },
   "version": "1.0.0",
+  "license": "GPL-3.0",
+  "downloadUrl": "https://github.com/cyrusbuilt/ArduinoCrashMonitor/archive/master.zip",
   "frameworks": "arduino",
   "platforms": "*"
 }
