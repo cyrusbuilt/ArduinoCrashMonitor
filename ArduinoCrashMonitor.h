@@ -1,6 +1,6 @@
 /**
- * ArduinoCrashMonitor.h
- * Version 1.0a
+ * CrashMonitor.h
+ * Version 1.1a
  * Author
  *  Cyrus Brunner
  *
@@ -21,6 +21,8 @@ namespace Watchdog
   #else
     #define PROGRAM_COUNTER_SIZE 2
   #endif
+
+  typedef void (*STATICFUNC)();
 
   /**
    * Crash monitor header.
@@ -65,28 +67,27 @@ namespace Watchdog
    * the iAmAlive signal before the end of the timeout, it will build and store
    * a crash report in EEPROM and then reset the MCU.
    */
-  class CCrashMonitor
+  class CrashMonitor
   {
     // The address in the EEPROM where crash data is saved. The first byte is
     // the number of records saved, followed by the location for the next report
     // to be saved, followed by the individual CCrashReport records.
-    const int _nBaseAddress;
+    static int _nBaseAddress;
 
     // The maximum number of crash entries stored in the EEPROM.
-    const int _nMaxEntries;
+    static int _nMaxEntries;
     enum EConstants { DEFAULT_ENTRIES = 10 };
-    CCrashReport _crashReport;
+    static CCrashReport _crashReport;
 
   public:
     /**
-     * Initializes the crash monitor. There should only be a single instance of
-     * the crash monitor in the whole program.
+     * Initializes the crash monitor.
      * @param baseAddress The address in the EEPROM where crash data should be stored.
      * @param maxEntries The maximum number of crash entries that should be stored
      * in the EEPROM. Storage of EEPROM data will take up sizeof(CCrashMonitorHeader) +
      * _nMaxEntries * sizeof(CCrashReport) bytes in the EEPROM.
      */
-    CCrashMonitor(int baseAddress = 500, int maxEntries = DEFAULT_ENTRIES);
+    static void begin(int baseAddress = 500, int maxEntries = DEFAULT_ENTRIES);
 
     /**
      * Dumps data to the specified destination.
@@ -94,7 +95,7 @@ namespace Watchdog
      * @param onlyIfPresent Only attempt to dump if the specified destination is
      * present.
      */
-    void dump(Print &destination, bool onlyIfPresent = true) const;
+    static void dump(Print &destination, bool onlyIfPresent = true);
 
     /**
      * Possible timeout values.
@@ -124,36 +125,36 @@ namespace Watchdog
      * @param timeout The timeout value to wait before considering the Firmware
      * to be hung.
      */
-    void enableWatchdog(ETimeout timeout);
+    static void enableWatchdog(ETimeout timeout);
 
     /**
      * Disables the watchdog timer.
      */
-    void disableWatchdog();
+    static void disableWatchdog();
 
     /**
      * Lets the watchdog timer know the program is still alive. Call this before
      * the watchdog timeout elapses to prevent program being aborted.
      */
-    void iAmAlive() const;
+    static void iAmAlive();
 
     /**
      * Sets user data to be included in crash report.
      * @param data The data to include.
      */
-    void setData(uint32_t data) { _crashReport.uData = data; }
+    static void setData(uint32_t data) { _crashReport.uData = data; }
 
     /**
      * Gets the user data being included in the crash report.
      * @return The user data being included in the crash report.
      */
-    uint32_t getData() const { return _crashReport.uData; }
+    static uint32_t getData() { return _crashReport.uData; }
 
     /**
      * Set the program address for the watchdog interrupt handler.
      * @param puProgramAddress The program address.
      */
-    void watchDogInterruptHandler(uint8_t *puProgramAddress);
+    static void watchDogInterruptHandler(uint8_t *puProgramAddress);
 
     /**
      * Sets a user crash event handler. If set, this callback will be executed
@@ -161,52 +162,52 @@ namespace Watchdog
      * @param onUserCrashEvent A user callback to execute. If NULL, then the
      * firmware will simply halt until the board is power-cycled or reset.
      */
-    void setUserCrashHandler(void (*onUserCrashEvent)());
+    static void setUserCrashHandler(void (*onUserCrashEvent)());
 
     /**
      * Deletes all saved reports from EEPROM.
      */
-    void clear();
+    static void clear();
 
     /**
      * Determines whether or not the maximum number of reports have been saved.
      * @return true if the EEPROM storage for crash reports is full; Otherwise;
      * false.
      */
-    bool isFull();
+    static bool isFull();
 
   private:
     /**
      * Saves the header to EEPROM.
      * @param reportHeader The crash report header.
      */
-    void saveHeader(const CCrashMonitorHeader &reportHeader) const;
+    static void saveHeader(const CCrashMonitorHeader &reportHeader);
 
     /**
      * Loads the crash report header from EEPROM
      * @param reportHeader The header to store the read data in.
      */
-    void loadHeader(CCrashMonitorHeader &reportHeader) const;
+    static void loadHeader(CCrashMonitorHeader &reportHeader);
 
     /**
      * Saves the current crash report to EEPROM.
      * @param reportSlot The slot to store the report in.
      */
-    void saveCurrentReport(int reportSlot) const;
+    static void saveCurrentReport(int reportSlot);
 
     /**
      * Loads the crash report from EEPROM.
      * @param report The report to load.
      * @param state  The state struct to load the crash report into.
      */
-    void loadReport(int report, CCrashReport &state) const;
+    static void loadReport(int report, CCrashReport &state);
 
     /**
      * Gets the EEPROM address to store the report in.
      * @param  report The report ID.
      * @return        The address to save the report in.
      */
-    int getAddressForReport(int report) const;
+    static int getAddressForReport(int report);
 
     /**
      * Reads a block of data from EEPROM.
@@ -214,7 +215,7 @@ namespace Watchdog
      * @param pData       The program data.
      * @param uSize       The size of the block to read.
      */
-    void readBlock(int baseAddress, void *pData, uint8_t uSize) const;
+    static void readBlock(int baseAddress, void *pData, uint8_t uSize);
 
     /**
      * Writes a block of data to EEPROM.
@@ -222,7 +223,7 @@ namespace Watchdog
      * @param pData       The program data to write.
      * @param uSize       The size of the data block to write.
      */
-    void writeBlock(int baseAddress, const void *pData, uint8_t uSize) const;
+    static void writeBlock(int baseAddress, const void *pData, uint8_t uSize);
 
     /**
      * Prints the specified value to the specified target.
@@ -232,16 +233,10 @@ namespace Watchdog
      * @param uRadix      A radix (formatter) for the data (ie. DEC, HEX, etc).
      * @param newLine     Set true if the data should terminate with a new line.
      */
-    void printValue(Print &destination, const __FlashStringHelper *pLabel,
-      uint32_t uValue, uint8_t uRadix, bool newLine) const;
+    static void printValue(Print &destination, const __FlashStringHelper *pLabel,
+      uint32_t uValue, uint8_t uRadix, bool newLine);
 
-    void (*userCrashHandler)();
+    static STATICFUNC userCrashHandler;
   };
 }
-
-/**
- * This needs to be a singleton. We define a global instance here since we
- * should only have one instance in the entire program.
- */
-extern Watchdog::CCrashMonitor CrashMonitor;
 #endif
