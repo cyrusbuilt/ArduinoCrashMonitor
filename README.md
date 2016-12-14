@@ -19,7 +19,7 @@ user-specified callback. Once the report is written to EEPROM, the MCU will be
 restarted or will hang indefinitely until manually reset. You can then use the
 dump() method to load the crash reports and dump them to a Serial port.
 
-## Crash analysis
+## Crash Analysis
 
 Having the address at which the crash occurred isn't very useful, unless you
 know where in the code that address matches up to. To find out what line in your
@@ -65,30 +65,41 @@ example below:
 #include <Arduino.h>
 #include "CrashMonitor.h"
 
+using namespace Watchdog;
+
 void setup() {
   Serial.begin(9600);
   while (!Serial) {
     delay(10);
   }
 
+  CrashMonitor::begin();
+
   // Dump any crash reports to the serial port.
-  CrashMonitor.dump(Serial);
-  if (CrashMonitor.isFull()) {
+  CrashMonitor::dump(Serial);
+  if (CrashMonitor::isFull()) {
     // We've stored as many crash reports as we can. Clear out the old ones so
     // we can have room for new ones.
     Serial.println(F("CrashMonitor report storage full."));
     Serial.println(F("Clearing crash reports from EEPROM ..."));
-    CrashMonitor.clear();
+    CrashMonitor::clear();
   }
 
   // Enable the watchdog timer with a timeout of 2 seconds.
-  CrashMonitor.enableWatchdog(Watchdog::CCrashMonitor::Timeout_2s);
+  CrashMonitor::enableWatchdog(Watchdog::CrashMonitor::Timeout_2s);
 }
 
 void loop() {
   // Let the watchdog know that we are still ok.
-  CrashMonitor.iAmAlive();
+  CrashMonitor::iAmAlive();
 }
 ```
 
 ## How to install
+For PlatformIO:
+```
+pio lib install ArduinoCrashMonitor
+```
+
+For Arduino IDE:
+See https://www.arduino.cc/en/Guide/Libraries
