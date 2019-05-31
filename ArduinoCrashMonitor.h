@@ -1,6 +1,6 @@
 /**
- * CrashMonitor.h
- * Version 1.1a
+ * ArduinoCrashMonitor.h
+ * Version 1.3
  * Author
  *  Cyrus Brunner
  *
@@ -12,6 +12,10 @@
 #define ArduinoCrashMonitor_h
 
 #include <Arduino.h>
+#ifndef __AVR__
+  #error "This library only compatible with the Arduino/Atmel AVR-based controllers."
+#endif
+
 #include <avr/wdt.h>
 
 namespace Watchdog
@@ -123,7 +127,8 @@ namespace Watchdog
      * the MCU. When the interrupt fires, we save the program counter to the
      * EEPROM.
      * @param timeout The timeout value to wait before considering the Firmware
-     * to be hung.
+     * to be hung. NOTE: On the ESP platform, changing the default timeout is
+     * not yet supported and the specified timeout value here has no effect.
      */
     static void enableWatchdog(ETimeout timeout);
 

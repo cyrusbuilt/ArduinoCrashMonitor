@@ -1,6 +1,6 @@
 /**
- * CrashMonitor.cpp
- * Version 1.2
+ * ArduinoCrashMonitor.cpp
+ * Version 1.3
  * Author
  *  Cyrus Brunner
  *

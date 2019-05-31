@@ -32,20 +32,24 @@ Windows:
 %programfiles(x86)%\\Arduino\\hardware\\tools\\avr\\bin
 
 MacOS X:
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin
+~/.platformio/penv/bin (for PlatformIO)
+or
+/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin  (for ArduinoIDE)
 
 Linux:
--- Typically already included in PATH.
+-- Typically already included in PATH. But otherwise same as macOS.
 
 And now the command:
-```
-avr-objdump -d -S -j .text CrashMonitorBasicExample.elf > disassembly.txt
+
+```bash
+$ avr-objdump -d -S -j .text CrashMonitorBasicExample.elf > disassembly.txt
 ```
 
 The above command will take the compiled ELF file for the basic example sketch
 and dump it out to a text file called 'disassembly.txt'. This will only work if
 you've ran a build on the sketch first. Make sure you provide the correct path
 to the ELF. Each crash report will be a line like this:
+
 ```
 0: word-address=0x3AE: byte-address=0x75C, data=0x0
 ```
@@ -96,10 +100,12 @@ void loop() {
 ```
 
 ## How to install
+
 For PlatformIO:
-```
-pio lib install ArduinoCrashMonitor
+
+```bash
+$ pio lib install ArduinoCrashMonitor
 ```
 
 For Arduino IDE:
-See https://www.arduino.cc/en/Guide/Libraries
+See <https://www.arduino.cc/en/Guide/Libraries>
