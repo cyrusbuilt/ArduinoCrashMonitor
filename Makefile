@@ -14,8 +14,7 @@ docs:
 	@doxygen
 	@open docs/html/index.html
 
-# update .travis.yml if target boards added
-all: uno megaatmega1280 megaatmega2560 micro leonardo huzzah
+all: uno megaatmega1280 megaatmega2560 micro leonardo
 
 uno megaatmega1280 megaatmega2560 micro leonardo:
 	PLATFORMIO_BOARD=$@ $(MAKE) build

@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/cyrusbuilt/ArduinoCrashMonitor.git"
   },
-  "version": "1.3.0",
+  "version": "1.4.0",
   "license": "GPL-3.0",
   "downloadUrl": "https://github.com/cyrusbuilt/ArduinoCrashMonitor/archive/master.zip",
   "frameworks": "arduino",

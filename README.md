@@ -1,6 +1,6 @@
 # ArduinoCrashMonitor :: A crash monitor library that stores crash reports to EEPROM.
 
-[![Build Status](https://travis-ci.org/cyrusbuilt/ArduinoCrashMonitor.svg?branch=master)](https://travis-ci.org/cyrusbuilt/ArduinoCrashMonitor)
+![Build Status](https://github.com/cyrusbuilt/ArduinoCrashMonitor/actions/workflows/ci.yml/badge.svg)
 
 ## Description
 
