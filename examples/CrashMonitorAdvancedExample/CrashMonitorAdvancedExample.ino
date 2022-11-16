@@ -1,4 +1,4 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include "ArduinoCrashMonitor.h"
 
 using namespace Watchdog;

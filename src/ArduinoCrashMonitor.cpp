@@ -1,6 +1,6 @@
 /**
  * ArduinoCrashMonitor.cpp
- * Version 1.3
+ * Version 1.4
  * Author
  *  Cyrus Brunner
  *
@@ -204,7 +204,7 @@ void CrashMonitor::watchDogInterruptHandler(uint8_t *puProgramAddress) {
 }
 
 /**
- * Interrupt Service Request. This function is called when the watchdog
+ * @brief Interrupt Service Request. This function is called when the watchdog
  * interrupt fires. The function is naked so that we don't get program states
  * pushed onto the stack. Consequently, the top two values on the stack will be
  * the program counter when the interrupt fired. We're going to save that in the
